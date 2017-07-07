@@ -1,0 +1,26 @@
+
+body {
+	background-color: silver;
+	font-family: Rockwell;
+}
+
+.moveCenter {
+	text-align: center;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.changeInput {
+	width: 20%;
+}
+
+.pic1 {
+	width: 100;
+}
+
+.pic2 {
+	width: 20%;
+}
+

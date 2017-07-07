@@ -1,0 +1,105 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>VueFlix</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="container">
+  <div id="vue-flix">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading moveCenter">
+            <h1 class="bold">Find Flix</h1>
+          </div>
+          <div class="panel-body moveCenter">
+            <form @submit.prevent="search">
+                <select v-model="category">
+                  <option value="actor">Actor</option>
+                  <option value="director">Director</option>
+                  <option value="title">Title</option>
+               </select>    
+              <input class="changeInput" type="text" v-model="query">
+              <button class="btn btn-primary bold" type="submit">Search</button>
+            </form>
+            <br>
+            <button class="btn btn-primary bold" @click="reset">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="bold">Result(s)</h3>
+            <p class="bold">Now Viewing Result(s) for {{query}}</p>
+          </div>
+          <div class="panel-body">
+            <div v-if="details.show_title">
+              <img :src="details.poster" class="pic1">
+              <h3 class="bold">{{details.show_title}}</h3>
+              <br>
+              <p class="bold">
+                Director: {{details.director}}, Runtime: {{details.runtime}},
+              </p>
+              <p class="bold">
+                Rating: {{details.rating}}, Released: {{details.release_year}}, Category: {{details.category}}
+              </p>
+              <p class="bold">
+                Summary: {{details.summary}}
+              </p>
+              <p class="bold">
+                Cast: {{details.show_cast}}
+              </p>
+              <button class="btn btn-primary bold" v-on:click.once="addToWatchlist">Add</button>
+            </div>
+            <div v-if="movies.length > 0">
+              <ul class="list-group" v-if="!details.show_title">
+                <li class="list-group-item" v-for="movie in movies" @click="setDetails(movie)">
+                  <img class="pic1" :src="movie.poster">
+                  <h4 class="bold">{{movie.show_title}}</h4>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="bold">Watchlist</h3>
+            <p class="bold">Watchlist has {{watchlist.length}} Item(s)</p>
+          </div>
+          <div class="panel-body">
+            <div v-if="watchlist.length > 0">
+              <ul class="list-group">
+                <li class="list-group-item" v-for="movie in watchlist" @click="setDetails(movie)">
+                  <img class="pic2" :src="movie.poster">
+                  <h4 class="bold">{{movie.show_title}}</h4>
+                  <button class="btn btn-primary bold" @click="removeFromWatchlist(movie)">Remove</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.js"></script>
+
+  <script src="app/services/flix-services.js"></script>
+  <script src="app/main.js"></script>
+
+</body>
+
+</html>
